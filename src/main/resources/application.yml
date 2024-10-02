@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: todolist
+  datasource:
+    url: jdbc:postgresql://localhost:15432/TODOList
+    username: admin
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect

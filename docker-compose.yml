@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: TODOList
+    ports:
+      - "15432:5432"
+    networks:
+      - my-network
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVER_PORT= 8081
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/TODOList
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=root
+    networks:
+      - my-network
+
+volumes:
+  db_data:
+networks:
+  my-network:
+    driver: bridge
